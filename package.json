@@ -1,0 +1,127 @@
+{
+  "name": "drink-buddy",
+  "private": true,
+  "version": "1.0.0",
+  "author": "Mikołaj Mrózek <mikolajmarcinmrozek@gmail.com>",
+  "main": "index.js",
+  "workspaces": {
+    "packages": [
+      "packages/drink-buddy-ui",
+      "packages/drink-buddy-service",
+      "packages/ui-component-base"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.1",
+    "lerna": "^5.6.2",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.7.1"
+  },
+  "scripts": {
+    "format": "prettier --write packages/**/*.{ts,tsx}",
+    "lint": "eslint --fix packages/**/*.{ts,tsx}",
+    "lint-and-check-all": "npm-run-all -p check:* -p lint:*",
+    "lint:app": "yarn workspace drink-buddy-ui lint",
+    "lint:components": "yarn workspace ui-component-base lint",
+    "lint:all": "npm-run-all -p lint:app -p lint:components",
+    "commit": "git add . && cz",
+    "check:all": "npm-run-all -p check:app -p check:components",
+    "check:app": "yarn workspace drink-buddy-ui type-check",
+    "check:components": "yarn workspace drink-buddy-ui type-check",
+    "dev": "cross-env APP_ENV=local yarn workspace drink-buddy-ui dev",
+    "start": "yarn workspace drink-buddy-ui start",
+    "build": "yarn workspace drink-buddy-ui build",
+    "prepare": "husky install",
+    "precommit:lerna": "lerna run --concurrency 1 --stream precommit --since HEAD --exclude-dependents"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "release": {
+    "tagFormat": "v${version}",
+    "branches": [
+      {
+        "name": "develop"
+      },
+      {
+        "name": "main",
+        "range": "1.x.x",
+        "channel": "1.x.x"
+      }
+    ],
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "angular",
+          "releaseRules": [
+            {
+              "type": "build",
+              "release": "patch"
+            },
+            {
+              "type": "docs",
+              "release": "patch"
+            },
+            {
+              "type": "feat",
+              "release": "patch"
+            },
+            {
+              "type": "fix",
+              "release": "patch"
+            },
+            {
+              "type": "refactor",
+              "release": "patch"
+            },
+            {
+              "type": "release",
+              "release": "major"
+            },
+            {
+              "type": "hotfix",
+              "release": "minor"
+            },
+            {
+              "type": "test",
+              "release": false
+            }
+          ],
+          "parserOpts": {
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING CHANGES"
+            ]
+          }
+        }
+      ],
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "docs/CHANGELOG.md"
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "docs/CHANGELOG.md"
+          ]
+        }
+      ]
+    ]
+  }
+}
