@@ -11,3 +11,9 @@ yarn run check:app
 
 echo Type Checking Components
 yarn run check:components
+
+echo Testing application
+yarn test:app
+
+echo Testing components
+yarn test:components

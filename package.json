@@ -37,7 +37,10 @@
     "start": "yarn workspace drink-buddy-ui start",
     "build": "yarn workspace drink-buddy-ui build",
     "prepare": "husky install",
-    "precommit:lerna": "lerna run --concurrency 1 --stream precommit --since HEAD --exclude-dependents"
+    "precommit:lerna": "lerna run --concurrency 1 --stream precommit --since HEAD --exclude-dependents",
+    "test:all": "npm-run-all -p test:app -p test:components",
+    "test:app": "yarn workspace drink-buddy-ui test",
+    "test:components": "yarn workspace ui-component-base test"
   },
   "config": {
     "commitizen": {
