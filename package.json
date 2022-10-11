@@ -33,6 +33,7 @@
     "check:app": "yarn workspace drink-buddy-ui type-check",
     "check:components": "yarn workspace drink-buddy-ui type-check",
     "dev": "cross-env APP_ENV=local yarn workspace drink-buddy-ui dev",
+    "export": "yarn workspace drink-buddy-ui export",
     "start": "yarn workspace drink-buddy-ui start",
     "build": "yarn workspace drink-buddy-ui build",
     "prepare": "husky install",
