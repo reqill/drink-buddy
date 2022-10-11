@@ -7,7 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "type-check": "yarn tsc --project tsconfig.json --pretty --noEmit"
+    "type-check": "yarn tsc --project tsconfig.json --pretty --noEmit",
+    "export": "next export"
   },
   "dependencies": {
     "ui-component-base": "^0.1.0",
