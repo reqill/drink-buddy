@@ -1,8 +1,0 @@
-{
-  "name": "drink-buddy-service",
-  "version": "0.1.0",
-  "main": "index.js",
-  "author": "Mikołaj Mrózek <mikolajmarcinmrozek@gmail.com>",
-  "license": "MIT",
-  "private": true
-}

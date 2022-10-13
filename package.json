@@ -6,9 +6,8 @@
   "main": "index.js",
   "workspaces": {
     "packages": [
-      "packages/drink-buddy-ui",
-      "packages/drink-buddy-service",
-      "packages/ui-component-base"
+      "packages/drink-buddy-app",
+      "packages/base-ui-components"
     ]
   },
   "devDependencies": {
@@ -17,7 +16,7 @@
     "cz-conventional-changelog": "^3.3.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.1",
-    "lerna": "^5.6.2",
+    "lerna": "^6.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1"
   },
@@ -25,22 +24,22 @@
     "format": "prettier --write packages/**/*.{ts,tsx}",
     "lint": "eslint --fix packages/**/*.{ts,tsx}",
     "lint-and-check-all": "npm-run-all -p check:* -p lint:*",
-    "lint:app": "yarn workspace drink-buddy-ui lint",
-    "lint:components": "yarn workspace ui-component-base lint",
+    "lint:app": "yarn workspace drink-buddy-app lint",
+    "lint:components": "yarn workspace @drink-buddy/base-ui-components lint",
     "lint:all": "npm-run-all -p lint:app -p lint:components",
     "commit": "git add . && cz",
     "check:all": "npm-run-all -p check:app -p check:components",
-    "check:app": "yarn workspace drink-buddy-ui type-check",
-    "check:components": "yarn workspace drink-buddy-ui type-check",
-    "dev": "cross-env APP_ENV=local yarn workspace drink-buddy-ui dev",
-    "export": "yarn workspace drink-buddy-ui export",
-    "start": "yarn workspace drink-buddy-ui start",
-    "build": "yarn workspace drink-buddy-ui build",
+    "check:app": "yarn workspace drink-buddy-app type-check",
+    "check:components": "yarn workspace drink-buddy-app type-check",
+    "dev": "cross-env APP_ENV=local yarn workspace drink-buddy-app dev",
+    "export": "yarn workspace drink-buddy-app export",
+    "start": "yarn workspace drink-buddy-app start",
+    "build": "yarn workspace drink-buddy-app build",
     "prepare": "husky install",
     "precommit:lerna": "lerna run --concurrency 1 --stream precommit --since HEAD --exclude-dependents",
     "test:all": "npm-run-all -p test:app -p test:components",
-    "test:app": "yarn workspace drink-buddy-ui test",
-    "test:components": "yarn workspace ui-component-base test"
+    "test:app": "yarn workspace drink-buddy-app test",
+    "test:components": "yarn workspace @drink-buddy/base-ui-components test"
   },
   "config": {
     "commitizen": {

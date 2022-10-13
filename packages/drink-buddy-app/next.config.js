@@ -21,3 +21,6 @@ module.exports = withConfig({
     ],
   },
 });
+
+const withUI = require('next-transpile-modules')(['@drink-buddy/base-ui-components']);
+module.exports = withUI();
