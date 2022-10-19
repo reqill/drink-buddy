@@ -21,7 +21,7 @@ export default cors(async function handler(req, res) {
   })(req, res);
 });
 
-export const configGQL = {
+export const config = {
   api: {
     bodyParser: false,
   },
