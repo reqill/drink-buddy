@@ -10,7 +10,57 @@ datasource db {
   url      = "postgresql://postgres:Admin0@localhost:5432/postgers" //TODO: env("DATABASE_URL")
 }
 
+model User {
+  id                           Int      @id @default(autoincrement())
+  createdAt                    DateTime @default(now())
+  updatedAt                    DateTime @updatedAt
+  username                     String   @unique
+  email                        String
+  drinks                       Drink[]
+  someFieldUsedForExternalAuth String //will be handeled later
+}
+
 model Drink {
-  id  String @id @default(uuid())
-  name String
+  id                Int             @id @default(autoincrement())
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  name              String
+  alcoholContent    Float
+  volume            Int
+  ingredientList    Ingredient[]
+  ingredientAmounts String[]
+  shortDescription  String?
+  additionalInfo    String?
+  categories        DrinkCategory[]
+  author            User            @relation(references: [id], fields: [authorId])
+  authorId          Int
+}
+
+model DrinkCategory {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String   @unique
+  description String?
+  drinks      Drink[]
+}
+
+model Ingredient {
+  id             Int                  @id @default(autoincrement())
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+  name           String               @unique
+  alcoholContent Float
+  description    String?
+  categories     IngredientCategory[]
+  drinks         Drink[]
+}
+
+model IngredientCategory {
+  id          Int          @id @default(autoincrement())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  name        String       @unique
+  description String?
+  Ingredients Ingredient[]
 }
