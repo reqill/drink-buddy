@@ -3,10 +3,10 @@
   "plugins": ["unused-imports", "react-hooks", "prettier"],
   "settings": {
     "next": {
-      "rootDir": "./packages/drink-buddy-app/"
+      "rootDir": "."
     }
   },
-  "ignorePatterns": ["./packages/**/*.test.ts", "**/*.d.ts"],
+  "ignorePatterns": ["./**/*.test.ts", "**/*.d.ts"],
   "parserOptions": {
     "warnOnUnsupportedTypeScriptVersion": true
   },

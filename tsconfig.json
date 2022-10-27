@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -15,21 +15,21 @@
     "jsx": "preserve",
     "incremental": true,
     "importHelpers": true,
-    "baseUrl": ".",
-    "typeRoots": [
-      "../../node_modules/@types",
-      "../../node_modules/@drink-buddy/base-ui-components/lib/types"
-    ],
+    "baseUrl": "./",
+    "typeRoots": ["./node_modules/@types"],
     "paths": {
-      "@components/*": ["components/*"],
-      "@hooks/*": ["hooks/*"],
-      "@store/*": ["store/*"],
-      "@utils/*": ["utils/*"],
-      "@typings/*": ["types/*"],
-      "@config/*": ["config/*"],
-      "@constants/*": ["constants/*"],
-      "@service/*": ["service/*"],
-      "@auth/*": ["auth/*"]
+      "@components/*": ["./src/components/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@store/*": ["src/stote/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@typings/*": ["./src/types/*"],
+      "@database/*": ["./src/database/*"],
+      "@graphql/*": ["./src/graphql/*"],
+      "@config/*": ["./src/config/*"],
+      "@constants/*": ["./src/constants/*"],
+      "@service/*": ["./src/service/*"],
+      "@ui-system/*": ["./src/ui-system/*"],
+      "@auth/*": ["./src/auth/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
