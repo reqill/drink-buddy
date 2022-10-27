@@ -2,7 +2,7 @@
 const nextRuntimeDotenv = require('next-runtime-dotenv');
 
 const withConfig = nextRuntimeDotenv({
-  path: `${process.cwd()}/config/env/.env.${process.env.APP_ENV}`,
+  path: `${process.cwd()}/src/config/env/.env.${process.env.APP_ENV}`,
   public: [
     // TODO: add envs used by user
   ],
@@ -21,6 +21,3 @@ module.exports = withConfig({
     ],
   },
 });
-
-const withUI = require('next-transpile-modules')(['@drink-buddy/base-ui-components']);
-module.exports = withUI();

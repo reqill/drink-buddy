@@ -4,6 +4,7 @@ import '../styles/global.css';
 interface CustomPageProps {
   // custom page props
 }
+// TODO: add layouts
 
 const App = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
   return (

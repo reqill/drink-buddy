@@ -1,19 +1,14 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+echo Installing Dependencies...
 yarn install
 
-echo Linting
-yarn run lint
+echo Linting...
+yarn lint
 
-echo Type Checking App
-yarn run check:app
+echo Type Checking Application...
+yarn check
 
-echo Type Checking Components
-yarn run check:components
-
-echo Testing application
-yarn test:app
-
-echo Testing components
-yarn test:components
+echo Testing Application...
+yarn test

@@ -1,10 +1,12 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+echo Installing Dependencies...
 yarn install
 
-echo Formatting
+echo Formatting...
 yarn format
 
+echo Staging Changes...
 git add .
 
