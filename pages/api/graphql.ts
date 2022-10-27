@@ -1,3 +1,3 @@
-import cors from '../../graphql';
-export { config } from '../../graphql';
+import cors from '../../src/graphql';
+export { config } from '../../src/graphql';
 export default cors;
