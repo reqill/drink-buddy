@@ -1,11 +1,10 @@
 import { NextPage } from 'next';
+import { Header1 } from '@drink-buddy/base-ui-components';
 
 const Home: NextPage = (): JSX.Element => {
   return (
     <div className="flex w-full min-h-screen h-full justify-center align-middle flex-col">
-      <h1 className="text-5xl font-bold m-auto pb-2 bg-gradient-to-tr bg-clip-text bg-star text-transparent from-blue-400 to-cyan-400">
-        Welcome to drink-buddy
-      </h1>
+      <Header1>Welcome to drink-buddy!</Header1>
     </div>
   );
 };

@@ -16,7 +16,10 @@
     "incremental": true,
     "importHelpers": true,
     "baseUrl": ".",
-    "typeRoots": ["../../node_modules/@types", "../../node_modules/ui-component-base/lib/types"],
+    "typeRoots": [
+      "../../node_modules/@types",
+      "../../node_modules/@drink-buddy/base-ui-components/lib/types"
+    ],
     "paths": {
       "@components/*": ["components/*"],
       "@hooks/*": ["hooks/*"],

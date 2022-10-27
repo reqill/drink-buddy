@@ -1,12 +1,12 @@
 const nextJest = require('next/jest');
 const createJestConfig = nextJest({ dir: '.' });
 const customConfig = {
-  displayName: 'drink-buddy-ui',
+  displayName: 'drink-buddy-app',
   injectGlobals: true,
   rootDir: './',
   collectCoverageFrom: ['./**/*', '!**/node_modules/**'],
   coverageDirectory: 'coverage',
-  moduleFileExtensions: ['js', 'ts', 'tsx'],
+  moduleFileExtensions: ['js', 'ts', 'tsx', 'jsx'],
   moduleNameMapper: {
     '\\.(css|sass|scss)$': 'identity-obj-proxy',
     '^@components/(.*)$': '<rootDir>/components/$1',

@@ -3,7 +3,7 @@
   "plugins": ["unused-imports", "react-hooks", "prettier"],
   "settings": {
     "next": {
-      "rootDir": "./packages/drink-buddy-ui/"
+      "rootDir": "./packages/drink-buddy-app/"
     }
   },
   "ignorePatterns": ["./packages/**/*.test.ts", "**/*.d.ts"],
