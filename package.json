@@ -2,8 +2,8 @@
   "name": "drink-buddy",
   "private": true,
   "version": "1.0.0",
-  "author": "Mikołaj Mrózek <mikolajmarcinmrozek@gmail.com>",
   "contributors": [
+    "Mikołaj Mrózek <mikolajmarcinmrozek@gmail.com> (https://reqill.github.io/portfolio-2022)",
     "Adam Maciuga"
   ],
   "main": "index.js",
