@@ -7,10 +7,60 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url     = "postgresql://postgres:Admin0@localhost:5432/postgers" //TODO: env("DATABASE_URL")
+  url      = "postgresql://postgres:Admin0@localhost:5432/postgers" //TODO: env("DATABASE_URL")
+}
+
+model User {
+  id                           String   @id @default(uuid())
+  createdAt                    DateTime @default(now())
+  updatedAt                    DateTime @updatedAt
+  username                     String   @unique
+  email                        String
+  drinks                       Drink[]
+  someFieldUsedForExternalAuth String //will be handeled later
 }
 
 model Drink {
-  id  String @id @default(uuid())
-  name String
+  id                String          @id @default(uuid())
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  name              String
+  alcoholContent    Float
+  volume            Int
+  ingredientList    Ingredient[]
+  ingredientAmounts String[]
+  shortDescription  String?
+  additionalInfo    String?
+  categories        DrinkCategory[]
+  author            User            @relation(references: [id], fields: [authorId])
+  authorId          String
+}
+
+model DrinkCategory {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String   @unique
+  description String?
+  drinks      Drink[]
+}
+
+model Ingredient {
+  id             String               @id @default(uuid())
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+  name           String               @unique
+  alcoholContent Float
+  description    String?
+  categories     IngredientCategory[]
+  drinks         Drink[]
+}
+
+model IngredientCategory {
+  id          String       @id @default(uuid())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  name        String       @unique
+  description String?
+  ingredients Ingredient[]
 }
