@@ -1,4 +1,4 @@
-import { objectType, extendType } from 'nexus';
+import { objectType, extendType, nonNull, stringArg } from 'nexus';
 import { Drink } from './Drink';
 import { IngredientCategory } from './IngredientCatagory';
 
@@ -40,6 +40,24 @@ export const IngredientQuery = extendType({
       type: 'Ingredient',
       resolve(_parent, _args, ctx) {
         return ctx.prisma.ingredient.findMany();
+      },
+    });
+  },
+});
+export const SingleIngredientQuery = extendType({
+  type: 'Query',
+  definition(t) {
+    t.nullable.field('ingredient', {
+      args: {
+        id: nonNull(stringArg()),
+      },
+      type: 'Ingredient',
+      resolve(_parent, args, ctx) {
+        return ctx.prisma.ingredient.findUnique({
+          where: {
+            id: args.id,
+          },
+        });
       },
     });
   },

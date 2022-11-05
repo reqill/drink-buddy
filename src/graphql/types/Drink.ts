@@ -1,4 +1,4 @@
-import { objectType, extendType } from 'nexus';
+import { objectType, extendType, nonNull, stringArg } from 'nexus';
 import { DrinkCategory } from './DrinkCategory';
 import { Ingredient } from './Ingredient';
 import { User } from './User';
@@ -55,6 +55,24 @@ export const DrinksQuery = extendType({
       type: 'Drink',
       resolve(_parent, _args, ctx) {
         return ctx.prisma.drink.findMany();
+      },
+    });
+  },
+});
+export const SingleDrinkQuery = extendType({
+  type: 'Query',
+  definition(t) {
+    t.nullable.field('drink', {
+      args: {
+        id: nonNull(stringArg()),
+      },
+      type: 'Drink',
+      resolve(_parent, args, ctx) {
+        return ctx.prisma.drink.findUnique({
+          where: {
+            id: args.id,
+          },
+        });
       },
     });
   },
