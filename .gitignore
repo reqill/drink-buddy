@@ -8,8 +8,7 @@ node_modules
 /coverage
 
 # next.js
-/.next/
-/packages/drink-buddy-ui/.next/
+.next/
 /out/
 
 # production
