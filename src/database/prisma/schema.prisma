@@ -15,7 +15,7 @@ model User {
   createdAt                    DateTime @default(now())
   updatedAt                    DateTime @updatedAt
   username                     String   @unique
-  email                        String
+  email                        String   @unique
   drinks                       Drink[]
   someFieldUsedForExternalAuth String //will be handeled later
 }
