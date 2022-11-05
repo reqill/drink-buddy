@@ -9,7 +9,7 @@ node_modules
 
 # next.js
 /.next/
-/packages/drink-buddy-ui/.next/
+./packages/drink-buddy-ui/.next/
 /out/
 
 # production
