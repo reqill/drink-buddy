@@ -8,7 +8,8 @@
   ],
   "main": "index.js",
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "schema": "./src/database/prisma/schema.prisma",
+    "seed": "ts-node ./src/database/prisma/seed.ts"
   },
   "scripts": {
     "format": "prettier --write ./**/*.{ts,tsx}",
