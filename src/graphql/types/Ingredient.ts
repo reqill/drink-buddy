@@ -1,6 +1,7 @@
 import { objectType, extendType, nonNull, stringArg, nullable, floatArg, list } from 'nexus';
 import { Drink } from './Drink';
 import {
+  GenericDeleteMutation,
   GenericListQuery,
   GenericRelationResolve,
   GenericSingleQuery,
@@ -41,4 +42,9 @@ export const IngredientAddMutation = GeneticCreateQueryWithRelations(
   'categories',
   'id',
   'categoriesId'
+);
+export const IngredientDeleteMutation = GenericDeleteMutation(
+  'addIngredient',
+  'Ingredient',
+  'ingredient'
 );

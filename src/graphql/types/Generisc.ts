@@ -105,3 +105,21 @@ export const GeneticCreateQueryWithRelations = (
     },
   });
 };
+export const GenericDeleteMutation = (queryName: string, nexusType: string, dbType: string) => {
+  return extendType({
+    type: 'Mutation',
+    definition(t) {
+      t.nonNull.field(queryName, {
+        type: nexusType,
+        args: { id: nonNull(stringArg()) },
+        async resolve(_parent, args, context) {
+          return context.prisma[dbType].delete({
+            where: {
+              ...args,
+            },
+          });
+        },
+      });
+    },
+  });
+};

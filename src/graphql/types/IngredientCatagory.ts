@@ -1,5 +1,6 @@
 import { objectType, extendType, nonNull, stringArg, nullable } from 'nexus';
 import {
+  GenericDeleteMutation,
   GenericListQuery,
   GenericRelationResolve,
   GenericSingleQuery,
@@ -40,5 +41,10 @@ export const IngredientCategoryAddMutation = GeneticCreateQuery(
     name: nonNull(stringArg()),
     description: nullable(stringArg()),
   },
+  'ingredientCategory'
+);
+export const IngredientCategoryDeleteMutation = GenericDeleteMutation(
+  'deleteIngredientCategory',
+  'IngredientCategory',
   'ingredientCategory'
 );
