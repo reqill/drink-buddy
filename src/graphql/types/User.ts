@@ -1,4 +1,4 @@
-import { objectType, extendType, nonNull, stringArg } from 'nexus';
+import { objectType } from 'nexus';
 import { Drink } from './Drink';
 import { GenericListQuery, GenericRelationResolve, GenericSingleQuery } from './Generisc';
 

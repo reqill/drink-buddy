@@ -1,4 +1,4 @@
-import { objectType, extendType, nonNull, stringArg, nullable } from 'nexus';
+import { objectType, nonNull, stringArg, nullable } from 'nexus';
 import {
   GenericDeleteMutation,
   GenericListQuery,

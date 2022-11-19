@@ -31,7 +31,7 @@
     "cross-env": "^7.0.3",
     "date-fns": "^2.29.3",
     "formik": "^2.2.9",
-    "graphql": "^16.6.0",
+    "graphql": "^15.0.0",
     "i18next": "^22.0.3",
     "micro": "^9.4.1",
     "micro-cors": "^0.1.1",

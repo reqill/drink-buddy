@@ -1,4 +1,4 @@
-import { objectType, extendType, stringArg, nonNull, nullable } from 'nexus';
+import { objectType, stringArg, nonNull, nullable } from 'nexus';
 import { Drink } from './Drink';
 import {
   GenericDeleteMutation,
