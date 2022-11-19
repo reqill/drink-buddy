@@ -1,5 +1,6 @@
 import { objectType, extendType, nonNull, stringArg } from 'nexus';
 import { DrinkCategory } from './DrinkCategory';
+import { GenericListQuery, GenericRelationResolve, GenericSingleQuery } from './Generisc';
 import { Ingredient } from './Ingredient';
 import { User } from './User';
 
@@ -12,68 +13,14 @@ export const Drink = objectType({
     t.string('name');
     t.float('alcoholContent');
     t.int('volume');
-    t.list.field('ingredientList', {
-      type: Ingredient,
-      async resolve(_parent, _args, ctx) {
-        return await ctx.prisma.drink
-          .findUnique({
-            where: { id: _parent.id },
-          })
-          .ingredientList();
-      },
-    });
+    t.list.field('ingredientList', GenericRelationResolve(Ingredient, 'drink', 'ingredientList'));
     t.list.string('ingredientAmounts');
     t.nullable.string('shortDescription');
     t.nullable.string('additionalInfo');
-    t.list.field('categories', {
-      type: DrinkCategory,
-      async resolve(_parent, _args, ctx) {
-        return await ctx.prisma.drink
-          .findUnique({
-            where: { id: _parent.id },
-          })
-          .categories();
-      },
-    });
-    t.field('author', {
-      type: User,
-      async resolve(_parent, _args, ctx) {
-        return await ctx.prisma.drink
-          .findUnique({
-            where: { id: _parent.id },
-          })
-          .author();
-      },
-    });
+    t.list.field('categories', GenericRelationResolve(DrinkCategory, 'drink', 'categories'));
+    t.field('author', GenericRelationResolve(User, 'drink', 'author'));
   },
 });
 
-export const DrinksQuery = extendType({
-  type: 'Query',
-  definition(t) {
-    t.nonNull.list.field('drinks', {
-      type: 'Drink',
-      resolve(_parent, _args, ctx) {
-        return ctx.prisma.drink.findMany();
-      },
-    });
-  },
-});
-export const SingleDrinkQuery = extendType({
-  type: 'Query',
-  definition(t) {
-    t.nullable.field('drink', {
-      args: {
-        id: nonNull(stringArg()),
-      },
-      type: 'Drink',
-      resolve(_parent, args, ctx) {
-        return ctx.prisma.drink.findUnique({
-          where: {
-            id: args.id,
-          },
-        });
-      },
-    });
-  },
-});
+export const DrinksQuery = GenericListQuery('drinks', 'Drink', 'drink');
+export const SingleDrinkQuery = GenericSingleQuery('drink', 'Drink', 'drink');

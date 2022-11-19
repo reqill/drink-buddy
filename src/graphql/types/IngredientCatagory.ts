@@ -1,4 +1,5 @@
 import { objectType, extendType, nonNull, stringArg } from 'nexus';
+import { GenericListQuery, GenericRelationResolve, GenericSingleQuery } from './Generisc';
 import { Ingredient } from './Ingredient';
 export const IngredientCategory = objectType({
   name: 'IngredientCategory',
@@ -8,44 +9,21 @@ export const IngredientCategory = objectType({
     t.string('updatedAt');
     t.string('name');
     t.nullable.string('description');
-    t.list.field('ingredients', {
-      type: Ingredient,
-      async resolve(_parent, _args, ctx) {
-        return await ctx.prisma.ingredientCategory
-          .findUnique({
-            where: { id: _parent.id },
-          })
-          .ingredients();
-      },
-    });
+    t.list.field(
+      'ingredients',
+      GenericRelationResolve(Ingredient, 'ingredientCategories', 'ingredients')
+    );
   },
 });
-export const IngredientCategoriesQuery = extendType({
-  type: 'Query',
-  definition(t) {
-    t.nonNull.list.field('ingredientCategories', {
-      type: 'IngredientCategory',
-      resolve(_parent, _args, ctx) {
-        return ctx.prisma.ingredientCategory.findMany();
-      },
-    });
-  },
-});
-export const SingleIngredientCategoryQuery = extendType({
-  type: 'Query',
-  definition(t) {
-    t.nullable.field('ingredientCategory', {
-      args: {
-        id: nonNull(stringArg()),
-      },
-      type: 'IngredientCategory',
-      resolve(_parent, args, ctx) {
-        return ctx.prisma.ingredientCategory.findUnique({
-          where: {
-            id: args.id,
-          },
-        });
-      },
-    });
-  },
-});
+
+export const IngredientCategoriesQuery = GenericListQuery(
+  'ingredientCategories',
+  'IngredientCategory',
+  'ingredientCategory'
+);
+
+export const SingleIngredientCategoryQuery = GenericSingleQuery(
+  'ingredientCategory',
+  'IngredientCategory',
+  'ingredientCategory'
+);

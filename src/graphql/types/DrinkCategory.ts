@@ -1,5 +1,6 @@
 import { objectType, extendType, stringArg, nonNull } from 'nexus';
 import { Drink } from './Drink';
+import { GenericListQuery, GenericRelationResolve, GenericSingleQuery } from './Generisc';
 
 export const DrinkCategory = objectType({
   name: 'DrinkCategory',
@@ -9,44 +10,17 @@ export const DrinkCategory = objectType({
     t.string('updatedAt');
     t.string('name');
     t.nullable.string('description');
-    t.list.field('drinks', {
-      type: Drink,
-      async resolve(_parent, _args, ctx) {
-        return await ctx.prisma.drinkCategory
-          .findUnique({
-            where: { id: _parent.id },
-          })
-          .drinks();
-      },
-    });
+    t.list.field('drinks', GenericRelationResolve(Drink, 'drinkCategory', 'drinks'));
   },
 });
-export const DrinkCategoriesQuery = extendType({
-  type: 'Query',
-  definition(t) {
-    t.nonNull.list.field('drinkCategories', {
-      type: 'DrinkCategory',
-      resolve(_parent, _args, ctx) {
-        return ctx.prisma.drinkCategory.findMany();
-      },
-    });
-  },
-});
-export const SingleDrinkCategoryQuery = extendType({
-  type: 'Query',
-  definition(t) {
-    t.nullable.field('drinkCategory', {
-      args: {
-        id: nonNull(stringArg()),
-      },
-      type: 'DrinkCategory',
-      resolve(_parent, args, ctx) {
-        return ctx.prisma.drinkCategory.findUnique({
-          where: {
-            id: args.id,
-          },
-        });
-      },
-    });
-  },
-});
+export const DrinkCategoriesQuery = GenericListQuery(
+  'drinkCategories',
+  'DrinkCategory',
+  'drinkCategory'
+);
+
+export const SingleDrinkCategoryQuery = GenericSingleQuery(
+  'drinkCategorie',
+  'DrinkCategory',
+  'drinkCategory'
+);

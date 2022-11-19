@@ -1,5 +1,6 @@
 import { objectType, extendType, nonNull, stringArg } from 'nexus';
 import { Drink } from './Drink';
+import { GenericListQuery, GenericRelationResolve, GenericSingleQuery } from './Generisc';
 import { IngredientCategory } from './IngredientCatagory';
 
 export const Ingredient = objectType({
@@ -11,54 +12,13 @@ export const Ingredient = objectType({
     t.float('alcoholContent');
     t.nullable.string('description');
     t.string('name');
-    t.list.field('drinks', {
-      type: Drink,
-      async resolve(_parent, _args, ctx) {
-        return await ctx.prisma.ingredient
-          .findUnique({
-            where: { id: _parent.id },
-          })
-          .drinks();
-      },
-    });
-    t.list.field('categories', {
-      type: IngredientCategory,
-      async resolve(_parent, _args, ctx) {
-        return await ctx.prisma.ingredient
-          .findUnique({
-            where: { id: _parent.id },
-          })
-          .categories();
-      },
-    });
+    t.list.field('drinks', GenericRelationResolve(Drink, 'ingredient', 'drinks'));
+    t.list.field(
+      'categories',
+      GenericRelationResolve(IngredientCategory, 'ingredient', 'categories')
+    );
   },
 });
-export const IngredientQuery = extendType({
-  type: 'Query',
-  definition(t) {
-    t.nonNull.list.field('ingredients', {
-      type: 'Ingredient',
-      resolve(_parent, _args, ctx) {
-        return ctx.prisma.ingredient.findMany();
-      },
-    });
-  },
-});
-export const SingleIngredientQuery = extendType({
-  type: 'Query',
-  definition(t) {
-    t.nullable.field('ingredient', {
-      args: {
-        id: nonNull(stringArg()),
-      },
-      type: 'Ingredient',
-      resolve(_parent, args, ctx) {
-        return ctx.prisma.ingredient.findUnique({
-          where: {
-            id: args.id,
-          },
-        });
-      },
-    });
-  },
-});
+export const IngredientQuery = GenericListQuery('ingredients', 'Ingredient', 'ingredient');
+
+export const SingleIngredientQuery = GenericSingleQuery('ingredient', 'Ingredient', 'ingredient');
