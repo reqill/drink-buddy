@@ -1,5 +1,10 @@
-import { objectType, extendType, nonNull, stringArg } from 'nexus';
-import { GenericListQuery, GenericRelationResolve, GenericSingleQuery } from './Generisc';
+import { objectType, extendType, nonNull, stringArg, nullable } from 'nexus';
+import {
+  GenericListQuery,
+  GenericRelationResolve,
+  GenericSingleQuery,
+  GeneticCreateQuery,
+} from './Generisc';
 import { Ingredient } from './Ingredient';
 export const IngredientCategory = objectType({
   name: 'IngredientCategory',
@@ -25,5 +30,15 @@ export const IngredientCategoriesQuery = GenericListQuery(
 export const SingleIngredientCategoryQuery = GenericSingleQuery(
   'ingredientCategory',
   'IngredientCategory',
+  'ingredientCategory'
+);
+
+export const IngredientCategoryAddMutation = GeneticCreateQuery(
+  'addIngredientCategory',
+  'IngredientCategory',
+  {
+    name: nonNull(stringArg()),
+    description: nullable(stringArg()),
+  },
   'ingredientCategory'
 );

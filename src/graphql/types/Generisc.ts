@@ -45,3 +45,63 @@ export const GenericSingleQuery = (queryName: string, nexusType: string, dbType:
     },
   });
 };
+export const GeneticCreateQuery = (
+  queryName: string,
+  nexusType: string,
+  mutationArgs: any,
+  dbType: string
+) => {
+  return extendType({
+    type: 'Mutation',
+    definition(t) {
+      t.nonNull.field(queryName, {
+        type: nexusType,
+        args: mutationArgs,
+        async resolve(_parent, args, context) {
+          return context.prisma[dbType].create({
+            data: {
+              ...args,
+            },
+          });
+        },
+      });
+    },
+  });
+};
+export const GeneticCreateQueryWithRelations = (
+  queryName: string,
+  nexusType: string,
+  mutationArgs: any,
+  dbType: string,
+  linkField: string,
+  linkBy: string,
+  linkingField: string
+) => {
+  return extendType({
+    type: 'Mutation',
+    definition(t) {
+      t.nonNull.field(queryName, {
+        type: nexusType,
+        args: mutationArgs,
+        async resolve(_parent, args, context) {
+          if (args[linkingField]) {
+            args[linkField] = {
+              connect: args[linkingField].map((linkingWord: any) => {
+                const temp: any = {};
+                temp[linkBy] = linkingWord;
+                return { ...temp };
+              }),
+            };
+          }
+
+          delete args[linkingField];
+          return context.prisma[dbType].create({
+            data: {
+              ...args,
+            },
+          });
+        },
+      });
+    },
+  });
+};
